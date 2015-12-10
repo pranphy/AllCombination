@@ -1,0 +1,9 @@
+.o
+*.o
+*/*/.o
+*.cbp
+*.dat
+*/*/*.dat
+*.dat
+*.depend
+*.layout
