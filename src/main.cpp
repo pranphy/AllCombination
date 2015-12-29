@@ -8,6 +8,7 @@
 #include<iostream>
 #include<iomanip>
 #include<vector>
+#include<string>
 
 #include "AllCombination.h"
 
@@ -17,15 +18,25 @@ ostream& operator<<(ostream&,vector<unsigned>);
 
 int main()
 {
-	vector<int> V; // = {'a','b','c','d','e','f','g','h','i','j'};
-	for(unsigned i=0; i<9; i++)
-		V.push_back(i);
+	// vector<char> V= {'a','b','c','d','e','f','g','h','i','j'};
+    string Characters ="123456895@#$%^&*()"; vector<char> V; for(char i:Characters) V.push_back(i);
+     //vector<char> V= {'@','b','c','d','e','f','g','h','i','j'};
+	//for(unsigned i=0; i<9; i++)
+	//	V.push_back(i);
 
-
-	Combination C(9,5);
-	C.SetElements(V);
-	C.Reset();
-	C.DisplayAll();
+    try{
+        Combination C(6,3);
+        C.SetElements(V);
+        C.Reset();
+        C.DisplayAll();
+    }catch(string Error){
+        cout<<Error<<endl;
+    }
+    try{
+        CompleteCombi(6,3);
+    }catch(string Error){
+        cout<<Error<<endl;
+    }
 
 }
 

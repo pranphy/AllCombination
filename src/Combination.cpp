@@ -7,19 +7,26 @@
 
 #include "Combination.h"
 
-Combination::Combination(int Yan,int Are):n(Yan),r(Are) {
-	Elements.reserve(n);
-	Chosen.reserve(r);
-	Generated = false;
-	if(r>n) //this is a mathematical error
-		throw 4;
-	EndReached = false;
-	for(unsigned i=0; i<n; Elements.push_back(i++));
-	for(unsigned i=0; i<r; Chosen.push_back(i++));
-	MakeAll();
+Combination::Combination(int Yan,int Are):n(Yan),r(Are) {	
+	if(r>n){
+        ostringstream Error;
+        Error<<" Cannot genereate combination beacuse in choose(n,r) n="<<n<<" < r="<<r;
+        throw Error.str();
+    }else{
+        Elements.reserve(n);
+        Chosen.reserve(r);
+        Generated = false;
+        EndReached = false;
+        for(unsigned i='A'; i<n; Elements.push_back(i++));
+        for(unsigned i=0; i<r; Chosen.push_back(i++));
+        MakeAll();
+    }
+}
+void Combination::Reset() {
+	for(unsigned i=0; i<r; Chosen[i]=i,i++);
 }
 
-void Combination::SetElements(vector<int> ReceivedElements) {
+void Combination::SetElements(vector<char> ReceivedElements) {
 	for(unsigned i=0; i<n; i++)
 		Elements[i] = ReceivedElements[i];
 
@@ -36,12 +43,12 @@ void Combination::DisplayAll(void) {
 
 void Combination::MakeAll() {
 	if(!Generated) {
-		Reset();
+		Reset(); // Just to be sure.
 		AllCombi.push_back(GetCurrent());
 		while(!EndStatus())
 			AllCombi.push_back(Next());
 		Generated = true;
-	}
+	} // If already generated do nothing,
 }
 
 vector<vector<unsigned>> Combination::GetAll() {
@@ -81,7 +88,7 @@ vector<unsigned> Combination::Next() {
 }
 
 
-
+/*
 vector<unsigned> Combination::Trim(vector<unsigned>& From,vector<unsigned>& Remove) {
 	vector<unsigned> Trimmed;
 	Trimmed.reserve(From.size()-Remove.size());
@@ -91,6 +98,7 @@ vector<unsigned> Combination::Trim(vector<unsigned>& From,vector<unsigned>& Remo
 	}
 	return Trimmed;
 }
+* */
 
 void Combination::DisplayChosen() {
 	for(unsigned i=0; i<r; i++)
@@ -106,9 +114,7 @@ bool Combination::EndStatus() {
 	return EndReached;
 }
 
-void Combination::Reset() {
-	for(unsigned i=0; i<r; Chosen[i]=i,i++);
-}
+
 
 vector<unsigned> Combination::operator++(int) { //postfix
 	vector<unsigned> Temp = Chosen;

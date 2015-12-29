@@ -13,6 +13,7 @@
 #include<vector>
 #include<string>
 #include<algorithm>
+#include<sstream>
 
 using namespace std;
 
@@ -28,7 +29,7 @@ private:
 	void DisplayIt(vector<unsigned>&);
 public:
 	Combination(int=9,int=3);
-	void SetElements(vector<int>);
+	void SetElements(vector<char>);
 	void DisplayAll(void);
 	void DisplayChosen();
 	vector<unsigned> Next();
